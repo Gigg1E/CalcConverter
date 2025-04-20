@@ -1,7 +1,7 @@
 # Coordinate Conversion Script (Rectangular <-> Polar)
 
 ## Connect
-For questions, support, or feature requests, please join my [Discord server]([https://discord.gg/your_discord_invite_link](https://discord.gg/)).
+For questions, support, or feature requests, please join my [Discord server](https://discord.gg/wsZ7TYdH).
 
 <hr>
 
