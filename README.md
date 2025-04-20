@@ -1,5 +1,8 @@
 # Coordinate Conversion Script (Rectangular <-> Polar)
 
+## Connect
+For questions, support, or feature requests, please join my [Discord server]([https://discord.gg/your_discord_invite_link](https://discord.gg/)).
+
 This JavaScript code provides functionality for converting coordinates between rectangular (Cartesian) and polar coordinate systems. It includes the following features:
 (No code changes need to be made in the script it's self)
 
@@ -9,6 +12,8 @@ This JavaScript code provides functionality for converting coordinates between r
 *   **Decimal Output:** Displays the converted coordinates with a precision of four decimal places.
 *   **Fractional Output:** Displays the converted coordinates as fractions using the \`math.js\` library.
 *   **Dynamic Display:** Updates the 'results' HTML element with the converted coordinates.
+
+  Input forms at bottom
 
 ## Functions
 
