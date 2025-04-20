@@ -1,6 +1,7 @@
 # Coordinate Conversion Script (Rectangular <-> Polar)
 
 This JavaScript code provides functionality for converting coordinates between rectangular (Cartesian) and polar coordinate systems. It includes the following features:
+(No code changes need to be made in the script it's self)
 
 *   **Input Validation:** Checks for valid numerical inputs and the correct number of comma-separated values.
 *   **Error Handling:** Displays user-friendly error messages for invalid inputs.
@@ -54,7 +55,7 @@ This function converts rectangular coordinates (x, y) to polar coordinates (radi
 
 ## Dependencies
 
-*   **math.js:** This library is used for converting numbers to fractions.  Make sure to include it in your HTML file.
+*   **math.js:** This library is used for converting numbers to fractions.  It is in assets/links file path and is accessed via relative path.
 
 ## Usage
 
