@@ -72,9 +72,9 @@ This function converts rectangular coordinates (x, y) to polar coordinates (radi
 4.  Call the \`convertPolarToRect()\` or \`convertRectToPolar()\` functions when the user submits the input.
 
 ## Input correction
-If you are confused on input forms read below.
+If you are confused on input forms read below. The following is true for the everything related to the converter.
 
 * When using sqrt (square root) you need parenthisis around the number being sqrt -> sqrt(3)
 * When using π you need to replace it with 'pi' -> pi
-* If you use a mixed fraction, ensure you use the multiply symbole rather than leaveing a sapce -> 3*pi/2
+* If you use a mixed fraction, ensure you use the multiply symbole (**) rather than leaveing a sapce -> 3*pi/2
 * Here is a example of a input that uses all three -> 7, sqrt(3)*pi/6
