@@ -3,6 +3,8 @@
 ## Connect
 For questions, support, or feature requests, please join my [Discord server]([https://discord.gg/your_discord_invite_link](https://discord.gg/)).
 
+<hr>
+
 This JavaScript code provides functionality for converting coordinates between rectangular (Cartesian) and polar coordinate systems. It includes the following features:
 (No code changes need to be made in the script it's self)
 
