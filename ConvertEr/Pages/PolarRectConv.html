@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <author font-size="xx-small">MqllpW</author>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coordinate Converter</title>
+    <script src="asstes\links\math.min.js"></script>
+    <link rel="stylesheet" href="asstes\links\all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+    
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            /* Use flex to manage overall layout */
+            align-items: flex-start;
+            padding: 10px 0;
+            margin: 0;
+            /* Remove body margins */
+            min-height: 100vh;
+            /* Ensure body takes at least the full viewport height */
+        }
+    
+        .history-container {
+            width: 18%;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            overflow-y: auto;
+            max-height: 70vh;
+            position: fixed;
+            /* Fixed position */
+            top: 20px;
+            left: 20px;
+            /* Stick to the left */
+        }
+    
+        .history-item {
+            margin-bottom: 10px;
+            padding: 8px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            color: #333;
+        }
+    
+        /* Media query for larger screens */
+        @media (min-width: 1200px) {
+            .history-container {
+                width: 30%;
+                /* Increase width for better readability */
+                font-size: 1.2em;
+                /* Increase font size for better readability */
+            }
+        }
+    
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            padding: 20px;
+            width: 100%;
+            margin-left: calc(18% + 40px);
+            /* Account for history width + spacing */
+            max-width: calc(75% - 40px);
+            /* Limit to 75% of screen */
+            position: relative;
+        }
+    
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-align: center;
+            color: #333;
+        }
+    
+        .section {
+            margin-bottom: 20px;
+        }
+    
+        label,
+        select,
+        input,
+        button {
+            font-size: 1rem;
+            margin: 5px 0;
+        }
+    
+        label {
+            color: #444;
+            display: block;
+            margin-bottom: 8px;
+        }
+    
+        input[type="text"],
+        select,
+        button {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-family: 'Arial', sans-serif;
+            box-sizing: border-box;
+        }
+    
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+    
+        button:hover {
+            background-color: #0056b3;
+        }
+    
+        .results {
+            margin-top: 20px;
+            font-size: 1.1rem;
+            color: #333;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Arial', sans-serif;
+            box-sizing: border-box;
+        }
+    
+        .graph-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+    
+        canvas {
+            border: 1px solid #ddd;
+            background-color: #fff;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+        }
+    
+        .syntax {
+            padding: 10px;
+            color: grey;
+            position: inherit;
+            text-align: center;
+        }
+    
+        .conversion-select {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+        }
+    
+        input[type="text"]::placeholder {
+            color: #aaa;
+            opacity: 1;
+        }
+    
+        /* Styles for the sticky button and dropdown menu */
+        .sticky-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            transition: background-color 0.3s ease;
+        }
+    
+        .sticky-button:hover {
+            background-color: #0056b3;
+        }
+    
+        /* Style for the menu icon lines */
+        .menu-icon {
+            width: 20px;
+            height: 20px;
+            position: relative;
+        }
+    
+        .line {
+            width: 100%;
+            height: 2px;
+            background-color: #fff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: transform 0.3s ease, top 0.3s ease;
+        }
+    
+        .line1 {
+            top: 25%;
+        }
+    
+        .line3 {
+            top: 75%;
+        }
+    
+        /* Styles for the dropdown menu */
+        .dropdown-menu {
+            position: absolute;
+            top: 40px;
+            right: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 5px 0;
+            display: none;
+            z-index: 5;
+            width: 120px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            transform-origin: top right;
+        }
+    
+        .dropdown-menu a {
+            display: block;
+            padding: 8px 15px;
+            text-decoration: none;
+            color: #333;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+        }
+    
+        .dropdown-menu a:hover {
+            background-color: #f0f0f0;
+        }
+    
+        .show {
+            display: block;
+            opacity: 1;
+        }
+    
+        /* When the menu is active (open), transform the lines */
+        .sticky-button.active .line1 {
+            transform: translate(-50%, -50%) rotate(45deg);
+            top: 50%;
+        }
+    
+        .sticky-button.active .line2 {
+            opacity: 0;
+        }
+    
+        .sticky-button.active .line3 {
+            transform: translate(-50%, -50%) rotate(-45deg);
+            top: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="history-container" id="historyLog">
+        <!-- History items will be added here -->
+    </div>
+
+    <div class="container">
+        <!-- Sticky button and dropdown menu -->
+        <button class="sticky-button" onclick="toggleDropdown()">
+            <div class="menu-icon">
+                <div class="line line1"></div>
+                <div class="line line2"></div>
+                <div class="line line3"></div>
+            </div>
+        </button>
+        <div class="dropdown-menu" id="dropdownMenu">
+            <a href="../main.html">Home</a>
+            <a href="learn.html">Learn</a>
+        </div>
+
+        <h2>Coordinate Converter</h2>
+        <div class="section conversion-select">
+            <label for="conversionType">Select Conversion Type:</label>
+            <select id="conversionType" onchange="updateForm()" aria-label="Select conversion type">
+                <option value="polarToRect">Polar to Rectangular</option>
+                <option value="rectToPolar">Rectangular to Polar</option>
+            </select>
+        </div>
+        <div class="section" id="polarInput">
+            <h3>Polar Coordinates</h3>
+            <label for="polarInputVal">Input (r, theta):</label>
+            <input type="text" id="polarInputVal" placeholder="pi = π , sqrt = √ , / = division/fractions (e.g. 7,6pi/2)" aria-label="Radius and Angle">
+            <button onclick="convertPolarToRect()" aria-label="Convert polar to rectangular coordinates">Convert</button>
+        </div>
+        <div class="section" id="rectInput" style="display:none">
+            <h3>Rectangular Coordinates</h3>
+            <label for="rectInputVal">Input (x, y):</label>
+            <input type="text" id="rectInputVal" placeholder="e.g. 3,4" aria-label="X and Y coordinates">
+            <button onclick="convertRectToPolar()" aria-label="Convert rectangular to polar coordinates">Convert</button>
+        </div>
+        <div class="section results" id="results" aria-live="polite">
+            <!-- Conversion results will appear here -->
+        </div>
+        <div class="graph-container">
+            <canvas id="graphCanvas" width="500" height="500" aria-label="Coordinate graph"></canvas>
+        </div>
+        <br>
+        <footer class="syntax">If you have any questions or concerns please join my <a href="https://discord.gg/wsZ7TYdH">discord</a> (only place I'll respond)</footer>
+    </div>
+    <script>
+        const modeSelect = document.getElementById('mode');
+        const polarInput = document.getElementById('polarInput');
+        const rectInput = document.getElementById('output');
+        const historyLog = document.getElementById('historyLog');
+        const canvas = document.getElementById('graphCanvas');
+        const ctx = canvas.getContext('2d');
+    
+        canvas.width = canvas.getAttribute('width');
+        canvas.height = canvas.getAttribute('height');
+    
+        let currentX = 0;
+        let currentY = 0;
+        let targetX = 0;
+        let targetY = 0;
+        let drawing = false;
+    
+        let graphScale = 20;
+    
+        const centerX = Math.round(canvas.width / graphScale / 2) * graphScale;
+        const centerY = Math.round(canvas.height / graphScale / 2) * graphScale;
+    
+    
+        function updateForm() {
+            const conversionType = document.getElementById('conversionType').value;
+            document.getElementById('polarInput').style.display = conversionType === 'polarToRect' ? 'block' : 'none';
+            document.getElementById('rectInput').style.display = conversionType === 'rectToPolar' ? 'block' : 'none';
+            document.getElementById('results').innerHTML = '';
+            drawGraph();
+        }
+    
+        
+        function formatResult(value) {
+            let result = value.toString().replace(/Math\.PI/g, "π");
+            result = result.replace(/Math\.sqrt\((.*?)\)/g, "√($1)");
+            return result;
+        }
+
+        
+        function formatAngleAlternatives(angle) {
+            const norm = (a) => ((a % 360) + 360) % 360;
+            const alternatices = [angle, angle + 180, angle - 180]
+                .map(a => norm(a))
+                .filter((a, i, arr) => arr.indexOf(a) === i)
+                .map(a => `${a.toFixed(2)}°`);
+            return alternatives.join(', ');
+        }
+    
+        function toRadians(degrees) {
+            return degrees * Math.PI / 180;
+        }
+    
+        function drawGraph(points = [], angle = null) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+            // Grid lines
+            const step = graphScale;
+            ctx.strokeStyle = '#ccc';
+            for (let x = 0; x <= canvas.width; x += step) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, canvas.height);
+                ctx.stroke();
+            }
+            for (let y = 0; y <= canvas.width; y += step) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+                ctx.stroke();
+            }
+    
+            // Axes
+            ctx.strokeStyle = '#000';
+            ctx.beginPath();
+            ctx.moveTo(centerX, 0);
+            ctx.lineTo(centerX, canvas.height);
+            ctx.stroke();
+    
+            ctx.beginPath();
+            ctx.moveTo(0, centerY);
+            ctx.lineTo(canvas.width, centerY);
+            ctx.stroke();
+    
+            // Draw origin label "0" in the fourth quadrant
+            ctx.fillStyle = '#000';
+            ctx.font = '10px Arial';
+            ctx.fillText("0", centerX + 5, centerY + 13);
+    
+    
+            // Add labels to the x-axis
+            ctx.fillStyle = '#000';
+            ctx.font = '10px Arial';
+    
+            for (let i = -Math.floor(centerX / graphScale); i <= Math.floor((canvas.width - centerX) / graphScale); i++) {
+    
+                if (i === 0) continue; // Skip drawing label at origin
+    
+                const x = centerX + i * graphScale;
+                const y = centerY + 15;
+                ctx.fillText(i.toString(), x - 5, y);
+            }
+    
+            // Add labels to the y-axis
+            for (let i = Math.floor(centerY / graphScale); i >= -Math.floor((canvas.width - centerY) / graphScale); i--) {
+                if (i === 0) continue; // Skip drawing label at origin
+    
+                const x = centerX + 5;
+                const y = centerY - i * graphScale;
+                ctx.fillText(i.toString(), x, y + 3);
+            }
+    
+            // Drawing the line to the point
+            if (points.length > 0) {
+                const point = points[0];
+                ctx.strokeStyle = '#000';
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.lineTo(centerX + point.x * graphScale, centerY - point.y * graphScale);
+                ctx.stroke();
+            }
+    
+            // Draw points with red color
+            ctx.fillStyle = 'red';
+            points.forEach(p => {
+                ctx.beginPath();
+                ctx.arc(centerX + p.x * graphScale, centerY - p.y * graphScale, 4, 0, 2 * Math.PI);
+                ctx.fill();
+            });
+    
+            // Draw degree arc and label
+            if (angle !== null) {
+                drawDegreeArc(points[0].x, points[0].y, angle);
+            }
+        }
+    
+        // Function to draw the degree arc
+        function drawDegreeArc(x, y, angle) {
+    
+            //Calculate end point of drawn radius line.
+            const endPointX = centerX + x * graphScale;
+            const endPointY = centerY - y * graphScale;
+    
+            //Calculate half way point of drawn radius line.
+            const halfPointX = (centerX + endPointX) / 2;
+            const halfPointY = (centerY + endPointY) / 2;
+    
+            //Calcaulte the radius to connect to halfway point of drawn radius line.
+            const radius = Math.sqrt(Math.pow(halfPointX - centerX, 2) + Math.pow(halfPointY - centerY, 2));
+    
+    
+            const startAngle = 0; // Start from 0 degrees
+            const endAngle = -angle * Math.PI / 180; // Convert angle to radians (counter-clockwise)
+    
+            ctx.strokeStyle = 'green';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, startAngle, endAngle, true); // Counter-clockwise arc
+            ctx.stroke();
+    
+            // Calculate midpoint angle
+            const midAngle = endAngle / 2;
+    
+            // Display degree number
+            const labelX = centerX + radius * Math.cos(midAngle) + 5;
+            const labelY = centerY + radius * Math.sin(midAngle) - 5;
+            ctx.fillStyle = 'green';
+            ctx.font = '10px Arial';
+            ctx.fillText(angle.toFixed(0) + '*', labelX, labelY);
+        }
+    
+        function symbolicMultiply(r, expr) {
+            if (r < 0) {
+                return `-${Math.abs(r)} \\cdot ${expr}`;
+            }
+            return `${r} \\cdot ${expr}`;
+        }
+    
+        function animateLine(targetX, targetY, angle) {
+            currentX = 0;
+            currentY = 0;
+            drawing = true;
+    
+            const stepSize = 0.025;
+            const deltaX = (targetX - currentX) * stepSize;
+            const deltaY = (targetY - currentY) * stepSize;
+    
+            function drawFrame() {
+                if (!drawing) return;
+    
+                currentX += deltaX;
+                currentY += deltaY;
+    
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                drawGraph([{
+                    x: currentX,
+                    y: currentY
+                }], angle);
+    
+                if (Math.abs(currentX - targetX) < 0.01 && Math.abs(currentY - targetY) < 0.01) {
+                    currentX = targetX;
+                    currentY = targetY;
+                    drawing = false;
+    
+                    ctx.fillStyle = 'blue';
+                    ctx.beginPath();
+                    ctx.arc(centerX + currentX * graphScale, centerY - currentY * graphScale, 6, 0, 2 * Math.PI);
+                    ctx.fill();
+    
+                    setTimeout(() => {
+                        ctx.fillStyle = 'red';
+                        ctx.beginPath();
+                        ctx.arc(centerX + currentX * graphScale, centerY - currentY * graphScale, 4, 0, 2 * Math.PI);
+                        ctx.fill();
+                        drawGraph([{
+                            x: targetX,
+                            y: targetY
+                        }], angle);
+                    }, 200);
+                } else {
+                    requestAnimationFrame(drawFrame);
+                }
+            }
+    
+            drawFrame();
+        }
+    
+        function handleExpression(expression) {
+            expression = expression.toLowerCase().trim();
+            return math.evaluate(expression);
+        }
+    
+        function convertPolarToRect() {
+            try {
+                const inputString = document.getElementById('polarInputVal').value;
+                const parts = inputString.split(',');
+
+                if (parts.length !== 2) {
+                    throw new Error('Please enter two values separated by a comma (r, theta).');
+                }
+
+                let radiusPart = parts[0].trim();
+                let thetaPart = parts[1].trim();
+                radiusPart = formatResult(radiusPart);
+                thetaPart = formatResult(thetaPart);
+                const radius = handleExpression(radiusPart);
+                const angleDeg = handleExpression(thetaPart);
+
+                if (isNaN(radius)) {
+                    throw new Error('Invalid radius value.');
+                }
+
+                if (isNaN(angleDeg)) {
+                    throw new Error('Invalid angle value.');
+                }
+
+                const angleRad = angleDeg * Math.PI / 180;
+                const x = Math.cos(angleRad) * radius;
+                const y = Math.sin(angleRad) * radius;
+
+                const xStr = formatResult(x.toFixed(4));
+                const yStr = formatResult(y.toFixed(4));
+
+                const resultText = `<strong>X:</strong> ${xStr}<br><strong>Y:</strong> ${yStr}`;
+                document.getElementById('results').innerHTML = resultText;
+
+                animateLine(x, y, angleDeg);
+                addToHistory(inputString, resultText);
+
+
+            } catch (e) {
+                document.getElementById('results').innerHTML = `<span style="color:red;">Error: ${e.message}</span>`;
+            }
+
+        }
+    
+        function convertRectToPolar() {
+            try {
+                const inputString = document.getElementById('rectInputVal').value;
+                const parts = inputString.split(',');
+
+                if (parts.length !== 2) {
+                    throw new Error('Please enter two values separated by a comma (x, y).');
+                }
+
+                let xPart = parts[0].trim();
+                let yPart = parts[1].trim();
+                xPart = formatResult(xPart);
+                yPart = formatResult(yPart);
+
+                const x = handleExpression(xPart);
+                const y = handleExpression(yPart);
+
+                if (isNaN(x)) {
+                    throw new Error('Invalid X value.');
+                }
+
+                if (isNaN(y)) {
+                    throw new Error('Invalid Y value.');
+                }
+
+                const r = Math.sqrt(x * x + y * y);
+                let theta = Math.atan2(y, x) * 180 / Math.PI;
+                if (theta < 0) theta += 360;
+
+                const rStr = formatResult(r.toFixed(4));
+                const thetaStr = formatResult(theta.toFixed(4));
+
+                const resultText = `<strong>Radius:</strong> ${rStr}<br><strong>Angle:</strong> ${thetaStr}°`;
+                document.getElementById('results').innerHTML = resultText;
+
+                animateLine(x, y, theta);
+                addToHistory(inputString, resultText);
+
+
+            } catch (e) {
+                document.getElementById('results').innerHTML = `<span style="color:red;">Error: ${e.message}</span>`;
+            }
+
+        }
+        // Override the addToHistory function to use local storage
+        function addToHistory(input, result) {
+            saveHistory(input, result); // Save to local storage
+    
+            // Update the display
+            const entry = document.createElement('div');
+            entry.className = 'history-item';
+            entry.innerHTML = `<div><strong>Input:</strong> ${input}</div><div><strong>Result:</strong> ${result}</div>`;
+            historyLog.insertBefore(entry, historyLog.firstChild);
+    
+            // Optionally limit the number of history items displayed
+            const maxHistoryItems = 10;
+            while (historyLog.children.length > maxHistoryItems) {
+                historyLog.removeChild(historyLog.lastChild);
+            }
+        };
+    
+        function saveHistory(input, result) {
+            try {
+                let historyEntries = JSON.parse(localStorage.getItem('coordinateConversionHistory') || '[]');
+                historyEntries.unshift({
+                    input: input,
+                    result: result
+                }); // Add new entry to the beginning
+    
+                // Limit history to the last 10 entries
+                historyEntries = historyEntries.slice(0, 10);
+    
+                localStorage.setItem('coordinateConversionHistory', JSON.stringify(historyEntries));
+            } catch (error) {
+                console.error('Failed to save history to localStorage:', error);
+            }
+        }
+    
+        function loadHistory() {
+            try {
+                const storedHistory = localStorage.getItem('coordinateConversionHistory');
+                if (storedHistory) {
+                    const historyEntries = JSON.parse(storedHistory);
+                    historyEntries.forEach(entry => {
+                        const entryDiv = document.createElement('div');
+                        entryDiv.className = 'history-item';
+                        entryDiv.innerHTML = `<div><strong>Input:</strong> ${entry.input}</div><div><strong>Result:</strong> ${entry.result}</div>`;
+                        historyLog.appendChild(entryDiv);
+                    });
+                }
+            } catch (error) {
+                console.error('Failed to load history from localStorage:', error);
+            }
+        }
+    
+        /* JavaScript to toggle the dropdown menu */
+        function toggleDropdown() {
+            try {
+                let dropdownMenu = document.getElementById("dropdownMenu");
+                let button = document.querySelector('.sticky-button');
+    
+                if (dropdownMenu && button) {
+                    dropdownMenu.classList.toggle("show");
+                    button.classList.toggle("active");
+                } else {
+                    console.error("dropdownMenu or button not found");
+                }
+            } catch (error) {
+                console.error("Error in toggleDropdown:", error);
+            }
+        }
+    
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            try {
+                let dropdownMenu = document.getElementById("dropdownMenu");
+                let button = document.querySelector('.sticky-button');
+    
+                if (dropdownMenu && button) {
+                    const isDropdownShown = dropdownMenu.classList.contains("show");
+                    if (!event.target.closest('.sticky-button') && isDropdownShown) {
+                        dropdownMenu.classList.remove("show");
+                        button.classList.remove("active");
+                    }
+                } else {
+                    console.error("dropdownMenu or button not found");
+                }
+            } catch (error) {
+                console.error("Error in window.onclick:", error);
+            }
+        }
+    
+        loadHistory();
+        updateForm();
+    
+    </script>
+</body>
+</html>

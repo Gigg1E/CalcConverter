@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding:20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #007bff;
+            text-align: center;
+            width: 100%;
+        }
+        h2 {
+            color: #007bff;
+            text-align: center;
+            width: 100%;
+        }
+
+        hr {
+            border: none;
+            height: 6px;
+            background-color: black;
+            width: 45%;
+            margin: 20px auto;
+        }
+
+        p {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: underline;
+        }
+
+        a:hover {
+            text-decoration: unerline;
+        }
+
+        .video-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .video-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+
+        label,
+        button {
+            font-size: 1rem;
+            margin: 5px 0;
+        }
+    
+        label {
+            color: #444;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        iframe {
+            border: 1px solid #ccc;
+            box-shadow: 02px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-family: 'Arial', sans-serif;
+            box-sizing: border-box;
+        }
+    
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+    
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .mainTitle {
+            color: black;
+            font-size: 3em;
+        }
+
+        .editedLine{
+            border: none;
+            height: 6px;
+            background-color: black;
+            width: 30%;
+            margin: 10px auto;
+        }
+
+        .sticky-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            transition: background-color 0.3s ease;
+        }
+    
+        .sticky-button:hover {
+            background-color: #0056b3;
+        }
+    
+        /* Style for the menu icon lines */
+        .menu-icon {
+            width: 20px;
+            height: 20px;
+            position: relative;
+        }
+    
+        .line {
+            width: 100%;
+            height: 2px;
+            background-color: #fff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: transform 0.3s ease, top 0.3s ease;
+        }
+    
+        .line1 {
+            top: 25%;
+        }
+    
+        .line3 {
+            top: 75%;
+        }
+    
+        /* Styles for the dropdown menu */
+        .dropdown-menu {
+            position: absolute;
+            top: 40px;
+            right: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 5px 0;
+            display: none;
+            z-index: 5;
+            width: 120px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            transform-origin: top right;
+        }
+    
+        .dropdown-menu a {
+            display: block;
+            padding: 8px 15px;
+            text-decoration: none;
+            color: #333;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+        }
+    
+        .dropdown-menu a:hover {
+            background-color: #f0f0f0;
+        }
+    
+        .show {
+            display: block;
+            opacity: 1;
+        }
+    
+        /* When the menu is active (open), transform the lines */
+        .sticky-button.active .line1 {
+            transform: translate(-50%, -50%) rotate(45deg);
+            top: 50%;
+        }
+    
+        .sticky-button.active .line2 {
+            opacity: 0;
+        }
+    
+        .sticky-button.active .line3 {
+            transform: translate(-50%, -50%) rotate(-45deg);
+            top: 50%;
+        }
+
+
+    </style>
+</head>
+<body>
+    <h1 class="mainTitle">Learn how to without the Calculators</h1>
+    <button class="sticky-button" onclick="toggleDropdown()">
+        <div class="menu-icon">
+            <div class="line line1"></div>
+            <div class="line line2"></div>
+            <div class="line line3"></div>
+        </div>
+    </button>
+    <div class="dropdown-menu" id="dropdownMenu">
+        <a href="#">Home</a>
+        <a href="learn.html">Learn</a>
+    </div>
+    <hr class="editedLine">
+
+    <p>Currently only have Polar and Rectangular conversions</p>
+
+    <h2>Videos on converting polar to rectangular cords</h2>
+
+    <div class="video-container">
+        <p class="video-title">Converting Polar to Rectangular Coordinates - <a href="https://youtu.be/_aRxzwnlCRU">Video 1</a></p>
+        <iframe width="1051" height="587" src="https://www.youtube.com/embed/_aRxzwnlCRU?si=aOqXy-f_7ctbxlDs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div class="video-container">    
+        <p class="video-title">Converting Polar to Rectangular Coordinates - <a href="https://youtu.be/wJ-AC9KFiT0">Video 2</a></p>
+        <iframe width="1051" height="587" src="https://www.youtube.com/embed/wJ-AC9KFiT0?si=j6s0ohgj_JHSLpMc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+
+    <hr>
+    <h1>Videos on converting Rectangular to Polar cords</h1>
+    <br>
+    
+    <div class="video-container">
+        <p class="video-title">Converting Rectangular to Polar Coordinates - <a href="https://youtu.be/aSdaT62ndYE">Video 1</a></p>
+        <iframe width="1051" height="587" src="https://www.youtube.com/embed/aSdaT62ndYE" title="Polar Coordinates Basic Introduction, Conversion to Rectangular, How to Plot Points, Negative R Valu" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    
+    <div class="video-container">
+        <p class="video-title">Converting Rectangular to Polar Coordinates - <a href="https://youtu.be/r0fv9V9GHdo">Video 2</a></p>
+        <iframe width="1051" height="587" src="https://www.youtube.com/embed/r0fv9V9GHdo" title="Polar Coordinates - The Basics" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>    
+    
+    <br>
+
+    <p>Page is not done, back to <a href="../main.html">Home Page</a></p>
+    <script>
+        window.onclick = function(event) {
+            try {
+                let dropdownMenu = document.getElementById("dropdownMenu");
+                let button = document.querySelector('.sticky-button');
+    
+                if (dropdownMenu && button) {
+                    const isDropdownShown = dropdownMenu.classList.contains("show");
+                    if (!event.target.closest('.sticky-button') && isDropdownShown) {
+                        dropdownMenu.classList.remove("show");
+                        button.classList.remove("active");
+                    }
+                } else {
+                    console.error("dropdownMenu or button not found");
+                }
+            } catch (error) {
+                console.error("Error in window.onclick:", error);
+            }
+        }
+    </script>
+</body>
+</html>

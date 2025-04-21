@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #007bff;
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        .calculator-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 150px; /* Added gap for better spacing */
+        }
+
+        .calculator-item {
+            width: 250px; /* Adjust as needed */
+        }
+
+        .calculator-button {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            box-sizing: border-box;
+            width: 150%;
+            transition: background-color 0.3s ease;
+        }
+
+        .calculator-button:hover {
+            background-color: #e9ecef; /* Light grey on hover */
+        }
+
+        .calculator-image {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+            transition: transform 0.3s ease; /* For the hover animation */
+        }
+
+        .calculator-name {
+            display: block;
+            font-weight: bold;
+        }
+
+        /* Hover animation (example: slight rotation) */
+      /*.calculator-button:hover .calculator-image {
+            transform: rotateZ('5px');
+        }*/
+    </style>
+</head>
+<body>
+    <h1>My Calculators</h1>
+    <p>Choose a calculator to use:</p>
+
+    <div class="calculator-grid">
+        <div class="calculator-item">
+            <button class="calculator-button" onclick="window.location.href='Pages/PolarRectConv.html'">
+                <img src="asstes\PolarRectConv.png" alt="Polar to Rectangular cords converter" class="calculator-image">
+                <span class="calculator-name">Polar and Rect converter</span>
+            </button>
+        </div>
+
+        <div class="calculator-item">
+            <button class="calculator-button" onclick="window.location.href='calculator2.html'">
+                <img src="calculator2.png" alt="Calculator 2" class="calculator-image">
+                <span class="calculator-name">Calculator 2 (holder)</span>
+            </button>
+        </div>
+
+        <div class="calculator-item">
+            <button class="calculator-button" onclick="window.location.href='calculator3.html'">
+                <img src="calculator3.png" alt="Calculator 3" class="calculator-image">
+                <span class="calculator-name">Calculator 3 (holoder)</span>
+            </button>
+        </div>
+        <!-- Add more calculator items here -->
+    </div>
+</body>
+</html>
