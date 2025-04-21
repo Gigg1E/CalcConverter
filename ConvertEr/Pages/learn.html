@@ -25,13 +25,15 @@
             color: #007bff;
             text-align: center;
             width: 100%;
+            padding-top: 20px;
         }
 
         hr {
+            display: flex;
             border: none;
-            height: 6px;
+            height: 4px;
             background-color: black;
-            width: 45%;
+            width: 85%;
             margin: 20px auto;
         }
 
@@ -80,6 +82,17 @@
             border: 1px solid #ccc;
             box-shadow: 02px 4px rgba(0, 0, 0, 0.1);
         }
+
+        .polartorect,
+        .rectToPolar {
+            padding: 15px;
+            border: solid;
+            border-color: red;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
 
         button {
             width: 100%;
@@ -222,6 +235,7 @@
 </head>
 <body>
     <h1 class="mainTitle">Learn how to without the Calculators</h1>
+
     <button class="sticky-button" onclick="toggleDropdown()">
         <div class="menu-icon">
             <div class="line line1"></div>
@@ -239,28 +253,32 @@
 
     <h2>Videos on converting polar to rectangular cords</h2>
 
-    <div class="video-container">
-        <p class="video-title">Converting Polar to Rectangular Coordinates - <a href="https://youtu.be/_aRxzwnlCRU">Video 1</a></p>
-        <iframe width="1051" height="587" src="https://www.youtube.com/embed/_aRxzwnlCRU?si=aOqXy-f_7ctbxlDs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    </div>
-    <div class="video-container">    
-        <p class="video-title">Converting Polar to Rectangular Coordinates - <a href="https://youtu.be/wJ-AC9KFiT0">Video 2</a></p>
-        <iframe width="1051" height="587" src="https://www.youtube.com/embed/wJ-AC9KFiT0?si=j6s0ohgj_JHSLpMc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <div class="polarToRect">
+        <div class="video-container">
+            <p class="video-title">Converting Polar to Rectangular Coordinates - <a href="https://youtu.be/_aRxzwnlCRU">Video 1</a></p>
+            <iframe width="1051" height="587" src="https://www.youtube.com/embed/_aRxzwnlCRU?si=aOqXy-f_7ctbxlDs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="video-container">    
+            <p class="video-title">Converting Polar to Rectangular Coordinates - <a href="https://youtu.be/wJ-AC9KFiT0">Video 2</a></p>
+            <iframe width="1051" height="587" src="https://www.youtube.com/embed/wJ-AC9KFiT0?si=j6s0ohgj_JHSLpMc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
     </div>
 
     <hr>
     <h1>Videos on converting Rectangular to Polar cords</h1>
     <br>
     
-    <div class="video-container">
-        <p class="video-title">Converting Rectangular to Polar Coordinates - <a href="https://youtu.be/aSdaT62ndYE">Video 1</a></p>
-        <iframe width="1051" height="587" src="https://www.youtube.com/embed/aSdaT62ndYE" title="Polar Coordinates Basic Introduction, Conversion to Rectangular, How to Plot Points, Negative R Valu" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <div class="rectToPolar">
+        <div class="video-container">
+            <p class="video-title">Converting Rectangular to Polar Coordinates - <a href="https://youtu.be/aSdaT62ndYE">Video 1</a></p>
+            <iframe width="1051" height="587" src="https://www.youtube.com/embed/aSdaT62ndYE" title="Polar Coordinates Basic Introduction, Conversion to Rectangular, How to Plot Points, Negative R Valu" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        
+        <div class="video-container">
+            <p class="video-title">Converting Rectangular to Polar Coordinates - <a href="https://youtu.be/r0fv9V9GHdo">Video 2</a></p>
+            <iframe width="1051" height="587" src="https://www.youtube.com/embed/r0fv9V9GHdo" title="Polar Coordinates - The Basics" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
     </div>
-    
-    <div class="video-container">
-        <p class="video-title">Converting Rectangular to Polar Coordinates - <a href="https://youtu.be/r0fv9V9GHdo">Video 2</a></p>
-        <iframe width="1051" height="587" src="https://www.youtube.com/embed/r0fv9V9GHdo" title="Polar Coordinates - The Basics" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    </div>    
     
     <br>
 
